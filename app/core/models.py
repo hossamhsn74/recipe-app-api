@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import RegexValidator
 
 
 class CustomUserManager(BaseUserManager):
@@ -37,11 +38,15 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
+phone_regex = RegexValidator(
+    regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+
+
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
-    phone = models.PositiveIntegerField(
-        _("phone number"), unique=True, default="01010101010")
+    phone = models.CharField(
+        _("phone number"), validators=[phone_regex], max_length=17, blank=True)
     profile_image = models.ImageField(
         _('profile image'), upload_to='img/',
         width_field=300, height_field=300, default=None)
