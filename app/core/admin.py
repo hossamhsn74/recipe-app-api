@@ -17,8 +17,9 @@ class AdminUser(BaseUserAdmin):
     add_fieldset = (
         (None, {
             'classes': ('wide',),
-            'fields': ('first_name', 'last_name', 'email', 'password1', 'password2')
-        })
+            'fields':
+            ('first_name', 'last_name', 'email', 'password1', 'password2')})
     )
+
 
 admin.site.register(CustomUser, AdminUser)
