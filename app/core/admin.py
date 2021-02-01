@@ -14,11 +14,12 @@ class AdminUser(BaseUserAdmin):
         (_('dates'), {'fields': ('last_login',)}),
     )
 
-    add_fieldset = (
+    add_fieldsets = (
         (None, {
             'classes': ('wide',),
             'fields':
-            ('first_name', 'last_name', 'email', 'password1', 'password2')})
+            ('first_name', 'last_name', 'email', 'password1', 'password2'),
+        }),
     )
 
 
